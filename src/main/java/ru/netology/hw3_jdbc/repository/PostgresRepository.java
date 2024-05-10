@@ -2,7 +2,6 @@ package ru.netology.hw3_jdbc.repository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -28,14 +27,7 @@ public class PostgresRepository {
 
     public String getProductName(String name) {
         Map<String, Object> params = Map.of("name", name);
-        String result;
-        try {
-            result = jdbcTemplate.query(findProductsCustomer, params, (rs, rowNum) -> rs.getString("product_name"))
-                    .stream().findFirst().orElse("");
-        } catch (DataIntegrityViolationException e) {
-            result = "Не найдено";
-        }
-        return result;
+        return jdbcTemplate.query(findProductsCustomer, params, (rs, rowNum) -> rs.getString("product_name")).toString();
     }
 
     private static String read(String scriptFileName) {
