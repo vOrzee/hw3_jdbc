@@ -1,3 +1,3 @@
 select product_name from orders
 join customers on customers.id = orders.customer_id
-where lower(customers.name) = :name;
+where lower(customers.name) = LOWER(:name);
