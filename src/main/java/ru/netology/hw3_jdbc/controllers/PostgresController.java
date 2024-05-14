@@ -5,18 +5,21 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import ru.netology.hw3_jdbc.entity.Person;
 import ru.netology.hw3_jdbc.services.PostgresServices;
+
+import java.util.List;
 
 
 @RestController
-@RequestMapping("/products")
+@RequestMapping("/persons")
 public class PostgresController {
 
     @Autowired
     PostgresServices service;
 
-    @GetMapping("/fetch-product")
-    public String getProductName(@RequestParam("name") String name) {
-        return service.getProductName(name);
+    @GetMapping("/by-city")
+    public List<Person> getProductName(@RequestParam("city") String city) {
+        return service.getPersonsByCity(city);
     }
 }
