@@ -1,24 +1,20 @@
 package ru.netology.hw3_jdbc.repository;
 
 
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import ru.netology.hw3_jdbc.entity.Person;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @Repository
-public class PostgresRepository {
+public interface PostgresRepository extends JpaRepository<Person, Long> {
 
-    @PersistenceContext
-    private EntityManager entityManager;
+    List<Person> findByCityOfLiving(String city);
 
-    public List<Person> getPersonsByCity(String city) {
-        var query = entityManager.createQuery("select p from Person p where p.cityOfLiving = :city", Person.class);
-        query.setParameter("city", city);
-        return query.getResultList();
-    }
+    List<Person> findByAgeLessThanOrderByAgeAsc(int age);
 
+    Optional<Person> findByNameAndSurname(String name, String surname);
 }

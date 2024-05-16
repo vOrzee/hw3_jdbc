@@ -6,14 +6,24 @@ import ru.netology.hw3_jdbc.entity.Person;
 import ru.netology.hw3_jdbc.repository.PostgresRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PostgresServices {
 
     @Autowired
-    PostgresRepository repository;
+    private PostgresRepository repository;
 
-    public List<Person> getPersonsByCity(String city) {
-        return repository.getPersonsByCity(city);
+    public List<Person> findByCityOfLiving(String city) {
+        return repository.findByCityOfLiving(city);
     }
+
+    public List<Person> findByAgeLessThan(int age) {
+        return repository.findByAgeLessThanOrderByAgeAsc(age);
+    }
+
+    public Optional<Person> findByNameAndSurname(String name, String surname) {
+        return repository.findByNameAndSurname(name, surname);
+    }
+
 }

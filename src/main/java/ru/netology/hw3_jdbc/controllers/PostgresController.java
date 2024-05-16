@@ -9,6 +9,7 @@ import ru.netology.hw3_jdbc.entity.Person;
 import ru.netology.hw3_jdbc.services.PostgresServices;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @RestController
@@ -20,6 +21,16 @@ public class PostgresController {
 
     @GetMapping("/by-city")
     public List<Person> getProductName(@RequestParam("city") String city) {
-        return service.getPersonsByCity(city);
+        return service.findByCityOfLiving(city);
+    }
+
+    @GetMapping("/by-age")
+    public List<Person> findByAgeLessThan(@RequestParam("age") int age) {
+        return service.findByAgeLessThan(age);
+    }
+
+    @GetMapping("/by-name-and-surname")
+    public Optional<Person> findByNameAndSurname(@RequestParam("name") String name, @RequestParam("surname") String surname) {
+        return service.findByNameAndSurname(name, surname);
     }
 }
