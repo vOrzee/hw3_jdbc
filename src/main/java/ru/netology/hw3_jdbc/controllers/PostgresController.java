@@ -20,7 +20,7 @@ public class PostgresController {
     PostgresServices service;
 
     @GetMapping("/by-city")
-    public List<Person> getProductName(@RequestParam("city") String city) {
+    public List<Person> findByCityOfLiving(@RequestParam("city") String city) {
         return service.findByCityOfLiving(city);
     }
 
