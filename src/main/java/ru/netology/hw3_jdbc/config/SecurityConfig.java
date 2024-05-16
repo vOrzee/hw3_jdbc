@@ -1,7 +1,8 @@
-package ru.netology.hw3_jdbc.controller;
+package ru.netology.hw3_jdbc.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.User;
@@ -16,6 +17,7 @@ import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
 public class SecurityConfig {
 
     @Bean
@@ -36,12 +38,23 @@ public class SecurityConfig {
 
     @Bean
     public UserDetailsService userDetailsService(PasswordEncoder passwordEncoder) {
-        UserDetails user = User.builder()
-                .username("Ivan")
-                .password(passwordEncoder.encode("pass"))
-                .roles("TEEPOT")
+
+        UserDetails ivan = User.builder()
+                .username("Ivan").password(passwordEncoder.encode("pass")).roles("READ")
                 .build();
 
-        return new InMemoryUserDetailsManager(user);
+        UserDetails sergey = User.builder()
+                .username("Sergey").password(passwordEncoder.encode("pass")).roles("WRITE")
+                .build();
+
+        UserDetails vasiliy = User.builder()
+                .username("Vasiliy").password(passwordEncoder.encode("pass")).roles("DELETE")
+                .build();
+
+        UserDetails roman = User.builder()
+                .username("Roman").password(passwordEncoder.encode("pass")).roles("READ", "WRITE", "DELETE")
+                .build();
+
+        return new InMemoryUserDetailsManager(ivan, sergey, vasiliy, roman);
     }
 }
