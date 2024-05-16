@@ -25,7 +25,7 @@ public class NewController {
 
     @GetMapping("/by-city")
     @Secured("ROLE_READ")
-    public List<Person> getByCity(@RequestParam("city") String city) {
+    public List<Person> findByCityOfLiving(@RequestParam("city") String city) {
         return service.findByCityOfLiving(city);
     }
 
