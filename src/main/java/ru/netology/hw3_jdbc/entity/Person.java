@@ -1,6 +1,6 @@
 package ru.netology.hw3_jdbc.entity;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.*;
 
 @Getter
